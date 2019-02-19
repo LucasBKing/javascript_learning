@@ -37,18 +37,11 @@
 
 ### Arrays
     - `let array = [];`
-    - pop(), push(), indexOf
+    - pop(), push(), indexOf, forEach()
 
-### array.forEach()
-    - `array.forEach(function (value, index) {
-            console.log(index, value);
-    }) `
 
-### isNaN()
-
-### toString()
-
-### parseInt()
+### Functions
+    - isNan(), toString(), parseInt(), eval(), join()
 
 ### Classes
     - Att and methods
