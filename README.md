@@ -27,6 +27,7 @@
 ### Events
     - Focus, click, drag
     - addEventListener
+        - replace()
     - handling multiple events using split();
 
 ### Date
@@ -36,11 +37,18 @@
 
 ### Arrays
     - `let array = [];`
+    - pop(), push(), indexOf
 
 ### array.forEach()
     - `array.forEach(function (value, index) {
             console.log(index, value);
     }) `
+
+### isNaN()
+
+### toString()
+
+### parseInt()
 
 ### Classes
     - Att and methods
