@@ -86,6 +86,10 @@ class CalcController {
         this._operation = [result, last];
 
     }
+    
+    setLastNumberToDisplay() {
+        
+    };
 
     addOperatorion(value) {
         if(isNaN(this.getLastOperation())) {
@@ -106,6 +110,9 @@ class CalcController {
                 //Number
                 let newValue = this.getLastOperation().toString() + value.toString();
                 this.setLastOperation(parseInt(newValue));
+
+                // Update display
+                this.setLastNumberToDisplay();
             }
             
         }
