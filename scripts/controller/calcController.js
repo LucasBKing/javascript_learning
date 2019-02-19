@@ -9,6 +9,7 @@ class CalcController {
         // Creating methods
         this.initialize();
         this.setDisplayDateTime();
+        this.initButtonsEvents();
     }
 
     // Set the current date into screen
@@ -35,7 +36,43 @@ class CalcController {
             year: "numeric"
         });
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
-    }
+    };
+
+    /**
+     * Here I created my own Event Listener, that recieve some args.
+     * @param element: the element that will be added an event
+     * @param {*} events : what kinda of events I want
+     * @param {*} fn : the function to that element
+     */
+    addEventListenerAll(element, events, fn) {
+        events.split(' ').forEach( event  => {
+            element.addEventListener(event, fn, false);
+        });
+    };
+
+    initButtonsEvents() {
+        // Getting all buttons and parts
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+        
+        // Looping through the buttons
+        buttons.forEach((btn, index) => {
+            /**
+             * Handling the click and drag events
+             */
+            this.addEventListenerAll(btn, 'click drag', e=> {
+                console.log(btn.className.baseVal.replace("btn-", ""));
+            });
+
+            /**
+             * Handling the mouserover mouseup and mousedown events
+             * Just change the cursor to pointer
+             */
+            this.addEventListenerAll(btn, 'mouseover mouseup mousedown', e=> {
+                btn.style.cursor = "pointer";
+            });
+
+        });
+    };
 
     /**
      * Getters and setters

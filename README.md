@@ -18,12 +18,16 @@
 
 ### DOM
     - Document Object Model
+    - querySelector
+
 
 ### BOM
     - Browser Object Model
 
 ### Events
-    - Focus, click
+    - Focus, click, drag
+    - addEventListener
+    - handling multiple events using split();
 
 ### Date
     - `date = new Date(); year = getFullYear(date);`
