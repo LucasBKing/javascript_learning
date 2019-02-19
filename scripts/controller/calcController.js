@@ -1,6 +1,7 @@
 class CalcController {
     // Executed when the object is instantiated
     constructor() {
+        this._operation = [];
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#data");
         this._timeEl = document.querySelector("#hora");
@@ -48,6 +49,63 @@ class CalcController {
         events.split(' ').forEach( event  => {
             element.addEventListener(event, fn, false);
         });
+    }; 
+
+    clearAll() {
+        this._operation = [];
+    };
+
+    clearEntry() {
+        this._operation.pop();
+    };
+
+    addOperatorion(value) {
+        this._operation.push(value);
+        console.log(this._operation);
+    };
+
+    setError() {
+        this.displayCalc = "Error";
+    };
+
+    execBtn(value) {
+        switch(value) {
+            case 'ac':
+                this.clearAll();
+                break;
+            case 'ce':
+                this.clearEntry();
+                break;
+            case 'soma':
+                break;
+            case 'subtracao':
+                break;
+            case 'divisao':
+                break;
+            case 'multiplicacao':
+                break;
+            case 'porcento':
+                break;
+            case 'igual':
+                break;
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                this.addOperatorion(parseInt(value));
+                break;
+
+            default:
+                this.setError();
+                break;
+
+        }
     };
 
     initButtonsEvents() {
@@ -60,7 +118,7 @@ class CalcController {
              * Handling the click and drag events
              */
             this.addEventListenerAll(btn, 'click drag', e=> {
-                console.log(btn.className.baseVal.replace("btn-", ""));
+                this.execBtn(btn.className.baseVal.replace("btn-", ""));
             });
 
             /**
