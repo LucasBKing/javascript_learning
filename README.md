@@ -19,11 +19,16 @@
 ### DOM
     - Document Object Model
 
+### BOM
+    - Browser Object Model
+
 ### Events
     - Focus, click
 
 ### Date
     - `date = new Date(); year = getFullYear(date);`
+    - toLocaleDateString()
+    - setInterval(): milliseconds
 
 ### Arrays
     - `let array = [];`
@@ -34,3 +39,13 @@
     }) `
 
 ### Classes
+    - Att and methods
+    - How make instances
+    - this._name -> private att
+    - getters and setters
+
+### MVC
+    - Model View Controller
+
+### Encapsulation
+    - public, protected and private
