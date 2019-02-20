@@ -1,57 +1,61 @@
 ## Javascript Course
 
 ### Transpiler
-    - Transpilers, or source-to-source compilers, are tools that read source code written in one programming language, and produce the equivalent code in another language. Languages you write that transpile to JavaScript are often called compile-to-JS languages, and are said to target JavaScript. 
+ - Transpilers, or source-to-source compilers, are tools that read source code written in one programming language, and produce the equivalent code in another language. Languages you write that transpile to JavaScript are often called compile-to-JS languages, and are said to target JavaScript. 
 
 ### Compare
-    - == : the value equals
-    - != : different values
-    - === : the values and type equals
-    - !== : different values and type
-    - && : and
-    - typeof
+ - "==" : the value equals
+ - "!=" : different values
+ - "===" : the values and type equals
+ - "!==" : different values and type
+ - "&&" : and
+ - "||" : or
+ - typeof
 
 ### Template String
-    - `${var}`
+ - `${var}`
 
 ### Anonymous Functions, Arrow Function
 
 ### DOM
-    - Document Object Model
-    - querySelector
+ - Document Object Model
+ - querySelector
 
 
 ### BOM
-    - Browser Object Model
+- Browser Object Model
 
 ### Events
-    - Focus, click, drag
-    - addEventListener
-        - replace()
-    - handling multiple events using split();
-    - audio sounds
+ - Focus, click, drag
+ - addEventListener
+ - replace()
+ - handling multiple events using split();
+ - audio sounds
 
 ### Date
-    - `date = new Date(); year = getFullYear(date);`
-    - toLocaleDateString()
-    - setInterval(): milliseconds
+ - `date = new Date(); year = getFullYear(date);`
+ - toLocaleDateString()
+ - setInterval(): milliseconds
 
 ### Arrays
-    - `let array = [];`
-    - pop(), push(), indexOf, forEach()
-
+ - `let array = [];`
+ - pop(), push(), indexOf, forEach()
 
 ### Functions
-    - isNan(), toString(), parseInt(), eval(), join()
+ - isNan(), toString(), parseInt(), eval(), join()
+ - try/catch
+ - setTimeOut
+ - length
+ - switch
 
 ### Classes
-    - Att and methods
-    - How make instances
-    - this._name -> private att
-    - getters and setters
+ - Att and methods
+ - How make instances
+ - this._name -> private att
+ - getters and setters
 
 ### MVC
-    - Model View Controller
+ - Model View Controller
 
 ### Encapsulation
-    - public, protected and private
+- public, protected and private
