@@ -386,6 +386,10 @@ class CalcController {
     }
 
     set displayCalc(arg) {
+        if (arg.toString().length > 10) {
+            this.setError();
+            return false;
+        }
         this._displayCalcEl.innerHTML = arg;
     }
 

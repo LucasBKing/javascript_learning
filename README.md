@@ -29,6 +29,7 @@
     - addEventListener
         - replace()
     - handling multiple events using split();
+    - audio sounds
 
 ### Date
     - `date = new Date(); year = getFullYear(date);`
