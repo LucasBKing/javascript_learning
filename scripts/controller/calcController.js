@@ -27,6 +27,7 @@ class CalcController {
             this.setDisplayDateTime();
         }, 1000);
         this.setLastNumberToDisplay();
+        this.pasteToClipboard();
     }
 
     /**
@@ -233,6 +234,9 @@ class CalcController {
                 case '9':
                     this.addOperatorion(parseInt(e.key));
                     break;
+                case 'c':
+                    if(e.ctrlKey) this.copyToClipboard();
+                    break;
     
             }
         });
@@ -308,6 +312,33 @@ class CalcController {
                 btn.style.cursor = "pointer";
             });
 
+        });
+    };
+
+    // Method that copy to clipboard the current operation on calculator
+    copyToClipboard() {
+        let input = document.createElement('input');
+        input.value = this.displayCalc;
+
+        document.body.appendChild(input);
+
+        input.select();
+
+        document.execCommand("Copy");
+
+        input.remove();
+    };
+
+    /** 
+     * Method that paste something into your clipboard and paste into calculator
+     * This thing must be a number, otherwise NaN will appear on screen
+    */ 
+     
+    pasteToClipboard() {
+        document.addEventListener('paste', e => {
+            let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
         });
     };
 
