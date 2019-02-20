@@ -1,6 +1,8 @@
 class CalcController {
     // Executed when the object is instantiated
     constructor() {
+        this._audio = new Audio('click.mp3');
+        this._audioOnOff = false;
         this._lastOperator = '';
         this._lastNumber = '';
         this._operation = [];
@@ -28,8 +30,24 @@ class CalcController {
         }, 1000);
         this.setLastNumberToDisplay();
         this.pasteToClipboard();
+
+        document.querySelectorAll('.btn-ac').forEach( btn => {
+            btn.addEventListener('dblclick', e => {
+                this.toggleAudio();
+            });
+        });
     }
 
+    toggleAudio() {
+        this._audioOnOff = !this._audioOnOff;
+    }
+
+    playAudio() {
+        if(this._audioOnOff) {
+            this._audio.currentTime = 0;
+            this._audio.play();
+        }
+    }
     /**
      * You'll call more than one time into initialize this block of code
      * So, use the encapsulation and reuse this block of code, creating a func
@@ -199,8 +217,9 @@ class CalcController {
     };
 
     initKeyboard() {
+        
         document.addEventListener('keyup', e => {
-            console.log(e.key);
+            this.playAudio();
             switch(e.key) {
                 case 'Escape':
                     this.clearAll();
@@ -243,6 +262,7 @@ class CalcController {
     };
 
     execBtn(value) {
+        this.playAudio();
         switch(value) {
             case 'ac':
                 this.clearAll();
