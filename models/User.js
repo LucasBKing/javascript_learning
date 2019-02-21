@@ -47,4 +47,16 @@ class User {
     set photo(arg) {
         this._photo = arg;
     }
+
+    loadFromJSON(data) {
+        for (let name in data) {
+            switch(name) {
+                case '_register':
+                    this[name] = new Date(data[name]);
+                    break;
+                default:
+                    this[name] = data[name];
+            }
+        }
+    };
 }

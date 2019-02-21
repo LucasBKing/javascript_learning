@@ -6,6 +6,7 @@ class UserController {
 
         this.onSubmit();
         this.onEdit();
+        this.selectAll();
     }
 
     // Adding an event when user press the submit button
@@ -28,6 +29,9 @@ class UserController {
             this.getPhoto(this.formEl)
                 .then((content) => {
                     values.photo = content;
+
+                    this.insert(values);
+
                     this.addLine(values);
 
                     // Cleaning the form on screen after submit some new user
@@ -191,6 +195,38 @@ class UserController {
         
     };
 
+    //getting users from session storage
+    getUsersStorage() {
+        let users = [];
+
+        if(sessionStorage.getItem("users")) {
+
+            users = JSON.parse(sessionStorage.getItem("users"));
+        }
+
+        return users;
+    };
+
+    //
+    selectAll() {
+        let users = this.getUsersStorage();
+
+        users.forEach( data => {
+            let user = new User();
+            user.loadFromJSON(data);
+
+            this.addLine(user);
+        });
+    }
+    //insert into session storage
+    insert(data) { 
+
+        let users = this.getUsersStorage();
+        
+        users.push(data);
+        // setItem(key, value)
+        sessionStorage.setItem("users", JSON.stringify(users));
+    };
 
     addLine(dataUser) {
 
