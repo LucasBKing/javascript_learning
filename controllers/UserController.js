@@ -18,6 +18,9 @@ class UserController {
 
             let values = this.getValues();
 
+            // Checking if the form is valid
+            if(!values) return false;
+
             this.getPhoto()
                 .then((content) => {
                     values.photo = content;
@@ -66,7 +69,7 @@ class UserController {
     // Saving all user data
     getValues() {
         let user = {};
-
+        let isValid = true;
         /**
          * this.formEl.elements is not an array, it's an object
          * use spread to use forEach
@@ -74,6 +77,15 @@ class UserController {
         */ 
 
         [...this.formEl.elements].forEach( (field, index) => {
+
+
+            // If the current field is a required field, test if the value is null
+            if (['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value) {
+                // adding error class to parent of this input
+                field.parentElement.classList.add('has-error');
+                isValid = false;
+            }
+
             // Taking just the checked gender
             if(field.name == "gender") {
                 // If the select is checked, use it
@@ -86,22 +98,30 @@ class UserController {
             }
         });
 
-        return new User(
-            user.name, 
-            user.gender, 
-            user.birth, 
-            user.country, 
-            user.email, 
-            user.password, 
-            user.photo, 
-            user.admin
-        );
+        if (isValid) {
+
+            return new User(
+                user.name, 
+                user.gender, 
+                user.birth, 
+                user.country, 
+                user.email, 
+                user.password, 
+                user.photo, 
+                user.admin
+            );
+        } else {
+            return false;
+        }
+        
     };
 
 
     addLine(dataUser) {
 
         let tr = document.createElement('tr');
+
+        tr.dataset.user = JSON.stringify(dataUser);
 
         tr.innerHTML = `
             <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
@@ -116,5 +136,28 @@ class UserController {
         `;
 
         this.tableEl.appendChild(tr);
+
+        this.updateCount();
+    };
+
+    // Counting the nunmber of users and admin users
+    updateCount() {
+        let numberUsers = 0;
+        let numberAdmin = 0; 
+
+        [...this.tableEl.children].forEach( tr => {
+            numberUsers++;
+
+            let user = JSON.parse(tr.dataset.user);
+
+            // If user are admin, count it on numberAdmin
+            if (user._admin) numberAdmin++;
+
+        });
+
+        // Printing on screen
+        document.querySelector("#number-users").innerHTML = numberUsers;
+        document.querySelector("#number-users-admin").innerHTML = numberAdmin;
+
     };
 }
