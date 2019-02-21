@@ -30,7 +30,7 @@ class UserController {
                 .then((content) => {
                     values.photo = content;
 
-                    this.insert(values);
+                    values.save();
 
                     this.addLine(values);
 
@@ -73,22 +73,14 @@ class UserController {
                         result._photo = content;
                     }
 
-                    tr.dataset.user = JSON.stringify(result);
+                    let user = new User();
 
-                    tr.innerHTML = `
-                        <td><img src="${result._photo}" alt="User Image" class="img-circle img-sm"></td>
-                        <td>${result._name}</td>
-                        <td>${result._email}</td>
-                        <td>${(result._admin) ? 'Yes' : 'No'}</td>
-                        <td>${Utils.dateFormat(result._register)}</td>
-                        <td>
-                            <button type="button" class="btn btn-edit btn-primary btn-xs btn-flat">Editar</button>
-                            <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
-                        </td>
-                    `;
+                    user.loadFromJSON(result);
+                
+                    user.save();
 
-                    this.addEventsTr(tr);
-
+                    this.getTr(user, tr);
+                    
                     this.updateCount();
 
                     // Cleaning the form on screen after submit some new user
@@ -195,21 +187,8 @@ class UserController {
         
     };
 
-    //getting users from session storage
-    getUsersStorage() {
-        let users = [];
-
-        if(localStorage.getItem("users")) {
-
-            users = JSON.parse(localStorage.getItem("users"));
-        }
-
-        return users;
-    };
-
-    //
     selectAll() {
-        let users = this.getUsersStorage();
+        let users = User.getUsersStorage();
 
         users.forEach( data => {
             let user = new User();
@@ -218,20 +197,18 @@ class UserController {
             this.addLine(user);
         });
     }
-    //insert into session storage
-    insert(data) { 
-
-        let users = this.getUsersStorage();
-        
-        users.push(data);
-        // setItem(key, value)
-        //sessionStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("users", JSON.stringify(users));
-    };
 
     addLine(dataUser) {
 
-        let tr = document.createElement('tr');
+        let tr = this.getTr(dataUser);
+
+        this.tableEl.appendChild(tr);
+
+        this.updateCount();
+    };
+
+    getTr(dataUser, tr = null) {
+        if(tr === null) tr = document.createElement('tr');
 
         tr.dataset.user = JSON.stringify(dataUser);
 
@@ -249,9 +226,7 @@ class UserController {
 
         this.addEventsTr(tr);
 
-        this.tableEl.appendChild(tr);
-
-        this.updateCount();
+        return tr;
     };
 
     // Counting the nunmber of users and admin users
@@ -278,6 +253,12 @@ class UserController {
     addEventsTr(tr) {
         tr.querySelector(".btn-delete").addEventListener("click", e => {
             if (confirm("Deseja realmente excluir?")) {
+                let user = new User();
+
+                user.loadFromJSON(JSON.parse(tr.dataset.user));
+
+                user.remove();
+
                 tr.remove();
 
                 this.updateCount();
